@@ -1,3 +1,3 @@
-interface EntityInterface {
-    tick(elapsedTime: number): void;
+export default interface EntityInterface {
+  tick: (elapsedTime: number) => void
 }

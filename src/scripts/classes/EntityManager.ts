@@ -1,12 +1,13 @@
-export default class EntityManager {
-    
-    private entities: EntityInterface[] = []
+import EntityInterface from '../interfaces/EntityInterface'
 
-    addEntity(entity: EntityInterface) {
-        this.entities.push(entity)
-    }
-    
-    tick(elapsedTime: number): void {
-        this.entities.forEach( entity => entity.tick(elapsedTime) )
-    }
+export default class EntityManager {
+  private readonly entities: EntityInterface[] = []
+
+  addEntity (entity: EntityInterface): void {
+    this.entities.push(entity)
+  }
+
+  tick (elapsedTime: number): void {
+    this.entities.forEach(entity => entity.tick(elapsedTime))
+  }
 }
