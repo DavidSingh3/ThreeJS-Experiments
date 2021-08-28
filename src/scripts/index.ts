@@ -32,7 +32,7 @@ camera.position.z = 1
 
 const entityManager = new EntityManager()
 
-for (let i: number = 0; i < 5; i++) {
+for (let i: number = 0; i < 500; i++) {
   const cube = new Cube(
     ((Math.random() * 0.07) + 0.01),
     (Math.random() * 2) - 1,
