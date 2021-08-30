@@ -7,22 +7,25 @@ export default class Cube implements EntityInterface {
   z: number
   delay: number
   geometry: THREE.BoxGeometry
-  material: THREE.MeshLambertMaterial
+  material: THREE.Material
   cube: THREE.Mesh
-  public constructor (size: number, x: number, y: number, z: number) {
+  public constructor (size: number, x: number, y: number, z: number, map: THREE.Texture) {
     this.x = x
     this.y = y
     this.z = z
     this.delay = Math.random() * 60
     this.geometry = new THREE.BoxGeometry(size, size, size)
-    const color = '#' + Math.floor(Math.random() * 16777215).toString(16)
-    this.material = new THREE.MeshLambertMaterial({ color })
+    this.material = new THREE.MeshPhongMaterial({ map })
     this.cube = new THREE.Mesh(this.geometry, this.material)
   }
 
   tick (elapsedTime: number): void {
-    this.rotate(0.01, 0.02, 0.03)
-    const speed: number = 0.1
+    const speed: number = 0.01
+    this.rotate(
+      speed * 0.1,
+      speed * 0.2,
+      speed * 0.3
+    )
     this.setPosition(
       0.6 * Math.cos(speed * (elapsedTime + this.delay)),
       0.6 * Math.sin(speed * (elapsedTime + this.delay)),

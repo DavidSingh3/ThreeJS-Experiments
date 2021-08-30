@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Cube from './classes/entities/Cube'
 import EntityManager from './classes/EntityManager'
 import '../styles/main.scss'
+import textureUrls from '../textures/index'
 
 const scene: THREE.Scene = new THREE.Scene()
 
@@ -16,15 +17,15 @@ camera.position.z = 1
 
 {
   const color: number = 0xffffff
-  const intensity: number = 1.2
-  const light = new THREE.PointLight(color, intensity)
+  const intensity: number = 0.6
+  const light = new THREE.AmbientLight(color, intensity)
   light.position.set(-1, 2, 4)
   scene.add(light)
 }
 
 {
   const color = 0xffffff
-  const intensity = 0.5
+  const intensity = 1
   const light = new THREE.PointLight(color, intensity)
   light.position.set(-1, 4, 6)
   scene.add(light)
@@ -32,21 +33,42 @@ camera.position.z = 1
 
 const entityManager = new EntityManager()
 
-for (let i: number = 0; i < 500; i++) {
-  const cube = new Cube(
-    ((Math.random() * 0.07) + 0.01),
-    (Math.random() * 2) - 1,
-    (Math.random() * 2) - 1,
-    (Math.random() * 2) - 1
-  )
-  cube.rotate(
-    Math.random(),
-    Math.random(),
-    Math.random()
-  )
-  cube.addToScene(scene)
-  entityManager.addEntity(cube)
-}
+const textureLoader = new THREE.TextureLoader()
+const textureLoaderPromises = textureUrls.map(async (url: string): Promise<THREE.Texture> => {
+  return await new Promise((resolve, reject) => {
+    textureLoader.load(
+      url,
+      resolve,
+      () => {},
+      reject
+    )
+  })
+})
+Promise.all(textureLoaderPromises)
+  .then((textures: THREE.Texture[]) => {
+    const getRandomTexture = (): THREE.Texture => {
+      const index = Math.floor(Math.random() * textures.length)
+
+      return textures[index]
+    }
+    for (let i: number = 0; i < 500; i++) {
+      const cube = new Cube(
+        ((Math.random() * 0.07) + 0.01),
+        (Math.random() * 2) - 1,
+        (Math.random() * 2) - 1,
+        (Math.random() * 2) - 1,
+        getRandomTexture()
+      )
+      cube.rotate(
+        Math.random(),
+        Math.random(),
+        Math.random()
+      )
+      cube.addToScene(scene)
+      entityManager.addEntity(cube)
+    }
+  })
+  .catch((error) => console.error(error))
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
