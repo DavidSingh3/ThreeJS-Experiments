@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import textureUrls from '../../textures'
+import SetManagerDependency from './SetManagerDependency'
 
-export default class TextureManager {
+export default class TextureManager extends SetManagerDependency {
   private readonly textureLoader = new THREE.TextureLoader()
 
   async loadTextures (): Promise<THREE.Texture[]> {

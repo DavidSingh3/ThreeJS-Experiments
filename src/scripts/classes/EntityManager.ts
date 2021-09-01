@@ -1,6 +1,7 @@
 import EntityInterface from '../interfaces/EntityInterface'
+import SetManagerDependency from './SetManagerDependency'
 
-export default class EntityManager {
+export default class EntityManager extends SetManagerDependency {
   private readonly entities: EntityInterface[] = []
 
   addEntity (entity: EntityInterface): void {

@@ -20,17 +20,15 @@ export default class Cube implements EntityInterface {
   }
 
   tick (elapsedTime: number): void {
-    const speed: number = 0.01
-    this.rotate(
-      speed * 0.1,
-      speed * 0.2,
-      speed * 0.3
-    )
-    this.setPosition(
-      0.6 * Math.cos(speed * (elapsedTime + this.delay)),
-      0.6 * Math.sin(speed * (elapsedTime + this.delay)),
-      0.6 * Math.sin(speed * (elapsedTime + this.delay))
-    )
+    // const speed: number = 0.1
+    // const direction: THREE.Vector3 = (new THREE.Vector3(1, 0, 0)).add(
+    //   new THREE.Vector3(0, 1, 0)
+    // ).negate()
+    // this.setPosition(
+    //   elapsedTime * speed * direction.getComponent(0),
+    //   elapsedTime * speed * direction.getComponent(1),
+    //   elapsedTime * speed * direction.getComponent(2)
+    // )
   }
 
   public addToScene (scene: THREE.Scene): void {
