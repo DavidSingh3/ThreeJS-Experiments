@@ -4,6 +4,7 @@ import brownMarble from './brown-marble.jpg'
 import rust from '../textures/rust.jpg'
 import wood from '../textures/wood.jpg'
 import wood2 from '../textures/wood2.jpg'
+import tiger from '../textures/tiger.png'
 
 const textureUrls: string[] = [
   blackMarble,
@@ -11,7 +12,8 @@ const textureUrls: string[] = [
   wood,
   wood2,
   blueMarble,
-  brownMarble
+  brownMarble,
+  tiger
 ]
 
 export default textureUrls
